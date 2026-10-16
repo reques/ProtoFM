@@ -5,7 +5,11 @@ __pycache__/
 # Data and generated experiment artifacts
 data/synse_features/
 data/label_splits/
-data/class_lists/
+data/class_lists/*
+!data/class_lists/ntu120.csv
+!data/class_lists/ntu120_llm.txt
+!data/class_lists/pku51.csv
+!data/class_lists/pku51_llm.txt
 flow/
 logs/
 checkpoints/

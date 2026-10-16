@@ -76,14 +76,14 @@ data/synse_features/ntu60_s55_u5/
 
 Class IDs must be zero-based and consistent across the features, unseen-label array, and text descriptions. If your features are distributed as an `.npz` archive, extract its `train`, `train_label`, `ztest`, `z_label`, `gtest`, and `g_label` arrays into the matching directory as individual `.npy` files. The feature loader uses the exact filenames shown above.
 
-The current `train.py` also reads both of these text files for **all NTU configurations**:
+The current `train.py` reads these bundled class files for **all NTU configurations**:
 
 ```text
-data/class_lists/ntu120.csv      # A `label` column, ordered by class ID
-data/class_lists/ntu120_llm.txt  # One description per class, in the same order
+data/class_lists/ntu120.csv      # 120 class names in the `label` column, ordered by class ID
+data/class_lists/ntu120_llm.txt  # 120 descriptions in the same order
 ```
 
-Provide both files with 120 aligned entries. The code indexes their joint text embeddings by numeric class ID. The pre-extracted feature data, unseen-label arrays, and class descriptions are not included in this repository.
+The code indexes their joint text embeddings by numeric class ID. `data/class_lists/pku51.csv` and `data/class_lists/pku51_llm.txt` are also included for the 51 PKU-MMD classes; the four supplied training configurations use NTU data. Pre-extracted feature data and unseen-label arrays are not included in this repository.
 
 ## Training and evaluation
 
