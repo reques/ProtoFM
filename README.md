@@ -17,7 +17,7 @@
 
 ---
 
-This repo is the official implementation for **"Beyond Alignment: A Generative Matching Paradigm via Flow Matching for Zero-Shot Skeleton-Based Action Recognition"**, presented as a poster at **ECCV 2026**. ProtoFM learns to generate skeleton features conditioned on action semantics, then evaluates both zero-shot learning (ZSL) and generalized zero-shot learning (GZSL). The current training path uses a DiT-based flow model, a triplet objective, a prototype-guided center loss, and a prototype memory bank at evaluation time.
+ProtoFM learns to generate skeleton features conditioned on action semantics, then evaluates both zero-shot learning (ZSL) and generalized zero-shot learning (GZSL). The current training path uses a DiT-based flow model, a triplet objective, a prototype-guided center loss, and a prototype memory bank at evaluation time.
 
 <p align="center">
   <img src="assets/protofm_framework.png" alt="Overview of the ProtoFM framework" width="100%">
@@ -133,6 +133,6 @@ If you use ProtoFM in your research, please cite:
 
 ## Acknowledgement
 
-This repo is based on [Shift-GCN](https://github.com/kchengiva/Shift-GCN) and [TDSM](https://github.com/KAIST-VICLab/TDSM). Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE. The scripts and statistics in `data/` are copied from Flora with permission, with the source files' existing notices retained.
+This repo is based on [Shift-GCN](https://github.com/kchengiva/Shift-GCN) and [TDSM](https://github.com/KAIST-VICLab/TDSM). Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE.
 
 Thanks to the authors for their work!
