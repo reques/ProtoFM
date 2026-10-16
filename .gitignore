@@ -3,7 +3,9 @@ __pycache__/
 .DS_Store
 
 # Data and generated experiment artifacts
-data/
+data/synse_features/
+data/label_splits/
+data/class_lists/
 flow/
 logs/
 checkpoints/

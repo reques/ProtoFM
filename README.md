@@ -51,6 +51,8 @@ The code also downloads or loads the `tokenizer` and `text_encoder` components o
 
 ProtoFM consumes **pre-extracted skeleton features**, not raw skeleton sequences. [Flora's pre-extracted feature instructions](https://github.com/cseeyangchen/Flora#b-pre-extracted-features) describe a source for the SynSE feature archives used by the four example configurations. Obtain the datasets and any external feature files under their respective terms.
 
+The `data/ntu60/`, `data/ntu120/`, and `data/pkummd/` directories are copied from [Flora's `data/` directory](https://github.com/cseeyangchen/Flora/tree/5ce56fdafd58a5cdd144554b2b381c19855e52d7/data). They contain raw-skeleton preprocessing scripts and dataset statistics. They do not include the pre-extracted features required by the four configurations below.
+
 The four YAML files in `config/` expect these directories:
 
 | YAML file | Feature directory | Unseen-label file |
@@ -81,7 +83,7 @@ data/class_lists/ntu120.csv      # A `label` column, ordered by class ID
 data/class_lists/ntu120_llm.txt  # One description per class, in the same order
 ```
 
-Provide both files with 120 aligned entries. The code indexes their joint text embeddings by numeric class ID. The feature data, unseen-label arrays, and class descriptions are not included in this directory.
+Provide both files with 120 aligned entries. The code indexes their joint text embeddings by numeric class ID. The pre-extracted feature data, unseen-label arrays, and class descriptions are not included in this repository.
 
 ## Training and evaluation
 
@@ -131,6 +133,6 @@ If you use ProtoFM in your research, please cite:
 
 ## Acknowledgement
 
-This repo is based on Shift-GCN and TDSM. Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE.
+This repo is based on Shift-GCN and TDSM. Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE. The scripts and statistics in `data/` are copied from Flora with permission, with the source files' existing notices retained.
 
 Thanks to the authors for their work!
