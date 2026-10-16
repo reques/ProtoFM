@@ -1,0 +1,64 @@
+seed: 1001
+num_worker: 4
+work_dir: ./flow/results/ntu120/unseen24_synse_gzsl_alpha0.3
+
+phase: train
+
+# feeder
+feeder: feeders.feeder.FeatureFeeder
+train_feeder_args:
+  path: ./data/synse_features/ntu120_s96_u24/
+  split: train
+
+val_feeder_args:
+  path: ./data/synse_features/ntu120_s96_u24/
+  split: train
+
+test_feeder_args:
+  path: ./data/synse_features/ntu120_s96_u24/
+  split: val
+
+gzsl_feeder_args:
+  path: ./data/synse_features/ntu120_s96_u24/
+  split: gzsl
+
+#optim
+optimizer: AdamW
+learning_rate: 0.0001
+weight_decay: 0.01
+lr_scheduler: cosine
+num_iter: 50000
+num_warmup: 100
+
+# logging
+log_iter: 500
+save_iter: 50000
+save_epoch: 50
+eval_epoch: 1
+val_epoch: 50
+
+# training
+batch_size: 128
+test_batch_size: 512
+gpu: 4
+#run_stage: all
+
+# zsl
+unseen_label: 24
+unseen_label_path: ./data/label_splits/ntu120/ru24.npy
+fm_weight: 1.0
+t_weight: 1.0
+c_weight: 0.002
+num_noise: 3
+margin: 1.0
+
+# denoising model
+in_channels: 256
+hidden_size: 768
+depth: 12
+num_heads: 12
+
+# test
+num_steps: 50
+max_p: 80
+# fusion_c: 0.5

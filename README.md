@@ -1,6 +1,6 @@
 <h1 align="center">Beyond Alignment: A Generative Matching Paradigm via Flow Matching for Zero-Shot Skeleton-Based Action Recognition</h1>
 
-<p align="center"><strong>ProtoFM · ECCV 2026</strong></p>
+<p align="center"><strong>ProtoFM · ECCV 2026 Poster</strong></p>
 
 <p align="center">
   <a href="https://orcid.org/0009-0008-1749-2431">Xuan Liu</a> ·
@@ -11,13 +11,13 @@
 </p>
 
 <p align="center">
-  <a href="https://eccv.ecva.net/virtual/2026/poster/4234"><img alt="ECCV 2026" src="https://img.shields.io/badge/ECCV-2026-1877B9?style=flat-square"></a>
+  <a href="https://eccv.ecva.net/virtual/2026/poster/4234"><img alt="ECCV 2026 Poster" src="https://img.shields.io/badge/ECCV-2026%20Poster-1877B9?style=flat-square"></a>
   <a href="https://doi.org/10.1007/978-3-032-37086-0_1"><img alt="Published paper" src="https://img.shields.io/badge/Paper-DOI-B31B1B?style=flat-square"></a>
 </p>
 
 ---
 
-This repository is the official implementation of **ProtoFM**, a flow matching framework for **zero-shot skeleton-based action recognition**. It learns to generate skeleton features conditioned on action semantics, then evaluates both zero-shot learning (ZSL) and generalized zero-shot learning (GZSL). The current training path uses a DiT-based flow model, a triplet objective, a prototype-guided center loss, and a prototype memory bank at evaluation time.
+This repo is the official implementation for **"Beyond Alignment: A Generative Matching Paradigm via Flow Matching for Zero-Shot Skeleton-Based Action Recognition"**, presented as a poster at **ECCV 2026**. ProtoFM learns to generate skeleton features conditioned on action semantics, then evaluates both zero-shot learning (ZSL) and generalized zero-shot learning (GZSL). The current training path uses a DiT-based flow model, a triplet objective, a prototype-guided center loss, and a prototype memory bank at evaluation time.
 
 <p align="center">
   <img src="assets/protofm_framework.png" alt="Overview of the ProtoFM framework" width="100%">
@@ -51,14 +51,14 @@ The code also downloads or loads the `tokenizer` and `text_encoder` components o
 
 ProtoFM consumes **pre-extracted skeleton features**, not raw skeleton sequences. [Flora's pre-extracted feature instructions](https://github.com/cseeyangchen/Flora#b-pre-extracted-features) describe a source for the SynSE feature archives used by the four example configurations. Obtain the datasets and any external feature files under their respective terms.
 
-The four root-level YAML files expect these directories:
+The four YAML files in `config/` expect these directories:
 
 | YAML file | Feature directory | Unseen-label file |
 | --- | --- | --- |
-| `flow_ntu60_unseen5.yaml` | `data/synse_features/ntu60_s55_u5/` | `data/label_splits/ntu60/ru5.npy` |
-| `flow_ntu60_unseen12.yaml` | `data/synse_features/ntu60_s48_u12/` | `data/label_splits/ntu60/ru12.npy` |
-| `flow_ntu120_unseen10.yaml` | `data/synse_features/ntu120_s110_u10/` | `data/label_splits/ntu120/ru10.npy` |
-| `flow_ntu120_unseen24.yaml` | `data/synse_features/ntu120_s96_u24/` | `data/label_splits/ntu120/ru24.npy` |
+| `config/flow_ntu60_unseen5.yaml` | `data/synse_features/ntu60_s55_u5/` | `data/label_splits/ntu60/ru5.npy` |
+| `config/flow_ntu60_unseen12.yaml` | `data/synse_features/ntu60_s48_u12/` | `data/label_splits/ntu60/ru12.npy` |
+| `config/flow_ntu120_unseen10.yaml` | `data/synse_features/ntu120_s110_u10/` | `data/label_splits/ntu120/ru10.npy` |
+| `config/flow_ntu120_unseen24.yaml` | `data/synse_features/ntu120_s96_u24/` | `data/label_splits/ntu120/ru24.npy` |
 
 Each feature directory must contain the files read by `feeders/feeder.py`:
 
@@ -72,13 +72,7 @@ data/synse_features/ntu60_s55_u5/
 └── g_label.npy      # GZSL test class IDs: [K]
 ```
 
-Class IDs must be zero-based and consistent across the features, unseen-label array, and text descriptions. If a downloaded `.npz` archive contains these six keys, `split_npz.py` can extract them into a directory without renaming:
-
-```bash
-python -c "from split_npz import npz_to_npy; npz_to_npy('data/synse_features/ntu60_seen55_unseen5.npz', 'data/synse_features/ntu60_s55_u5')"
-```
-
-Repeat with the corresponding archive and output directory for each split. Check the printed archive keys: the feature loader requires the six file names shown above. The `split_npz.py` command-line defaults are hard-coded to the NTU120 96/24 archive, so use the import form shown here for other splits.
+Class IDs must be zero-based and consistent across the features, unseen-label array, and text descriptions. If your features are distributed as an `.npz` archive, extract its `train`, `train_label`, `ztest`, `z_label`, `gtest`, and `g_label` arrays into the matching directory as individual `.npy` files. The feature loader uses the exact filenames shown above.
 
 The current `train.py` also reads both of these text files for **all NTU configurations**:
 
@@ -91,23 +85,23 @@ Provide both files with 120 aligned entries. The code indexes their joint text e
 
 ## Training and evaluation
 
-`main_gzsl.py` trains and evaluates at the end of **every epoch**. It reports ZSL accuracy, GZSL seen/unseen accuracy, calibrated gamma, and the harmonic mean `H`. Pass `--num-epoch` explicitly: the current root-level YAML files do not set it, and the parser default is only one epoch. Use a fresh `--work-dir` for each run because log files are opened in append mode.
+`main_gzsl.py` trains and evaluates at the end of **every epoch**. It reports ZSL accuracy, GZSL seen/unseen accuracy, calibrated gamma, and the harmonic mean `H`. Pass `--num-epoch` explicitly: the YAML files in `config/` do not set it, and the parser default is only one epoch. Use a fresh `--work-dir` for each run because log files are opened in append mode.
 
 ```bash
 # NTU RGB+D 60: 55 seen / 5 unseen; use physical GPU 0
-python main_gzsl.py --config flow_ntu60_unseen5.yaml \
+python main_gzsl.py --config config/flow_ntu60_unseen5.yaml \
   --num-epoch 100 --gpu 0 --work-dir ./flow/results/ntu60/unseen5_new
 
 # NTU RGB+D 60: 48 seen / 12 unseen
-python main_gzsl.py --config flow_ntu60_unseen12.yaml \
+python main_gzsl.py --config config/flow_ntu60_unseen12.yaml \
   --num-epoch 100 --gpu 0 --work-dir ./flow/results/ntu60/unseen12_new
 
 # NTU RGB+D 120: 110 seen / 10 unseen
-python main_gzsl.py --config flow_ntu120_unseen10.yaml \
+python main_gzsl.py --config config/flow_ntu120_unseen10.yaml \
   --num-epoch 100 --gpu 0 --work-dir ./flow/results/ntu120/unseen10_new
 
 # NTU RGB+D 120: 96 seen / 24 unseen
-python main_gzsl.py --config flow_ntu120_unseen24.yaml \
+python main_gzsl.py --config config/flow_ntu120_unseen24.yaml \
   --num-epoch 100 --gpu 0 --work-dir ./flow/results/ntu120/unseen24_new
 ```
 

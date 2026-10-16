@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Data and generated experiment artifacts
+data/
+flow/
+logs/
+checkpoints/
+work_dir*/
+
+# Model weights and large array files
+*.bin
+*.ckpt
+*.npy
+*.npz
+*.pt
+*.pth
+*.safetensors
