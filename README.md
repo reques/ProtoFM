@@ -133,6 +133,6 @@ If you use ProtoFM in your research, please cite:
 
 ## Acknowledgement
 
-This repo is based on Shift-GCN and TDSM. Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE. The scripts and statistics in `data/` are copied from Flora with permission, with the source files' existing notices retained.
+This repo is based on [Shift-GCN](https://github.com/kchengiva/Shift-GCN) and [TDSM](https://github.com/KAIST-VICLab/TDSM). Part of the pre-trained skeleton features is derived from SynSE and SA-DAVE. The semantics for the NTU-series datasets are partially obtained from SA-DAVE. The scripts and statistics in `data/` are copied from Flora with permission, with the source files' existing notices retained.
 
 Thanks to the authors for their work!
